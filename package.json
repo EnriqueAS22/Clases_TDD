@@ -1,0 +1,33 @@
+{
+  "name": "clasestdd",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:watchAll": "jest --watchAll",
+    "test:list": "jest --listTests",
+    "test:json": "jest --json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@babel/core": "^7.27.4",
+    "@babel/preset-env": "^7.27.2",
+    "@types/jest": "^29.5.14",
+    "babel-jest": "^30.0.0-beta.3",
+    "jest": "^29.7.0",
+    "jest-extended": "^5.0.3"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "jest-extended/all"
+    ]
+  },
+  "dependencies": {
+    "axios": "^1.9.0"
+  }
+}
