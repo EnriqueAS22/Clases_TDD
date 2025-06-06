@@ -78,4 +78,62 @@ describe("Testing de la clase Carrito", () => {
       expect(carrito.getTotalCheckout()).toEqual(0);
     });
   });
+
+  describe("Testeando addItem (detail)", () => {
+    it("Debe contener el item añadido en la propiedad carrito.items", () => {
+      carrito.addItem(sushiItem);
+      expect(carrito.items).toPartiallyContain(sushiItem);
+    });
+
+    it("Carrito.items debe ser un array vacío si no añadimos ningún elemento", () => {
+      expect(carrito.items).toBeEmpty();
+    });
+
+    it("Carrito debe llamar a una función checkItem antes de añadirlo al carrito", () => {
+      const spy = jest.spyOn(carrito, "checkItem");
+      carrito.addItem(sushiItem);
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it("Carrito debe llamar una unica vez a checkItem cuando añadimos un elemento", () => {
+      const spy = jest.spyOn(carrito, "checkItem");
+      carrito.addItem(sushiItem);
+      expect(spy).toHaveBeenCalledOnce();
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+
+    it("Carrito debe llamar a una función checkItem con el valor del item a añadir", () => {
+      const spy = jest.spyOn(carrito, "checkItem");
+      carrito.addItem(sushiItem);
+      expect(spy).toHaveBeenCalledWith(sushiItem);
+    });
+  });
+
+  describe("Testeando removeItem", () => {
+    it("Carrito.removeItem debe devolver un array vacio despues de añadir un elemeto y eliminarlo", () => {
+      carrito.addItem(waterItem);
+      expect(carrito.removeItem(waterItem)).toHaveLength(0);
+    });
+
+    it("Carrito.removeItem debe devolver un array con un elemento despues de añadir dos elemetos y eliminar uno", () => {
+      carrito.addItem(sushiItem);
+      carrito.addItem(waterItem);
+      expect(carrito.removeItem(waterItem)).toHaveLength(1);
+    });
+
+    it("Carrito.items debe contener un elemento después de añadir dos elementos distintos y eliminar uno", () => {
+      carrito.addItem(sushiItem);
+      carrito.addItem(waterItem);
+      carrito.removeItem(waterItem);
+      expect(carrito.items).toHaveLength(1);
+    });
+
+    it("Carrito.items debe ser un array con dos elementos si añadimos dos sushiItems y un waterItem y eliminamos un sushiItem", () => {
+      carrito.addItem(sushiItem);
+      carrito.addItem(sushiItem);
+      carrito.addItem(waterItem);
+      carrito.removeItem(sushiItem);
+      expect(carrito.items).toHaveLength(2);
+    });
+  });
 });
